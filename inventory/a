@@ -1,0 +1,54 @@
+<!-- DROPDOWN KATEGORI -->
+                            <div class="py-3 my-3 form-group2">
+
+                                <?php
+                                if (isset($_POST["tambah_kategori"])) {
+                                    if (kategori($_POST) > 0) {
+                                        echo "
+                                <script>
+                                    alert('Data berhasil ditambahkan');
+                                    document.location.href = 'tambahproduk.php';
+                                </script>
+                                ";
+                                    } else {
+                                        echo "
+                                <script>
+                                    alert('data gagal ditambahkan');
+                                    document.location.href = 'tambahproduk.php';
+                                </script>
+                                ";
+                                    }
+                                }
+                                ?>
+                                <label class="label-tambah" for="kategori">Kategori <button type="button" class="text-wajib" disabled data-bs-toggle="button">Wajib</button></label>
+                                <select class="ms-1" name="kategori" id="kategori">
+                                    <option value="">Pilih Kategori</option>
+                                    <?php
+                                    $table = mysqli_query($conn, "SELECT * FROM kategori_list");
+                                    $total_rows = mysqli_num_rows($table);
+
+                                    for ($i = 0; $i < $total_rows; $i++) {
+                                        $row = mysqli_fetch_assoc($table);
+                                    ?>
+                                        <?php if (!empty($row["kategori"])) : ?>
+                                            <option value="<?php echo $row["kategori"] ?>"><?php echo $row["kategori"] ?></option>
+                                        <?php endif; ?>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+
+                                <div class="me-2 rights search-box">
+                                    <input class="search" type="text" placeholder="Tambah Kategori.." name="tambah_kategori" id="keyword">
+                                    <div class="search-icon">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <div class="cancel-icon">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="search-data">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- END DROPDOWN KATEGORI -->
